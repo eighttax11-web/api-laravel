@@ -7,8 +7,10 @@ use App\Http\Controllers\Api\V2\PostController as PostV2;
 
 // Version 1
 Route::apiResource('v1/posts', PostV1::class)
-    ->only(['index', 'show', 'destroy']);
+    ->only(['index', 'show', 'destroy'])
+    ->middleware('auth:sanctum');
 
 // Version 2
 Route::apiResource('v2/posts', PostV2::class)
-    ->only(['index', 'show', 'destroy']);
+    ->only(['index', 'show', 'destroy'])
+    ->middleware('auth:sanctum');
