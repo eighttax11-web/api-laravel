@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Http\Resources\V1\PostResource;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+
+use App\Http\Resources\V2\PostCollection;
+use App\Http\Resources\V2\PostResource;
 
 class PostController extends Controller
 {
     public function index()
     {
-        return PostResource::collection(Post::latest()->paginate());
+        return new PostCollection(Post::latest()->paginate());
     }
 
     public function store(Request $request)
@@ -32,10 +33,6 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
-
-        return response()->json([
-            'message' => 'success'
-        ], Response::HTTP_NO_CONTENT);
+        //
     }
 }
